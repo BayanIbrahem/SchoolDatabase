@@ -8,8 +8,8 @@ import com.training.school_database.db.entities.School
 data class SchoolAndDirector (
     @Embedded val school: School,
     @Relation (
-        parentColumn = "school_id", // in school table
-        entityColumn = "school_id"  // in director table
+        parentColumn = "school_name", // in school table
+        entityColumn = "school_name"  // in director table
     )
     val director: Director
 )

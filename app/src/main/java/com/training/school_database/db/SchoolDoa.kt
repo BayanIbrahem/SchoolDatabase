@@ -3,7 +3,9 @@ package com.training.school_database.db
 import androidx.room.*
 import com.training.school_database.db.entities.Director
 import com.training.school_database.db.entities.School
+import com.training.school_database.db.entities.Student
 import com.training.school_database.db.entities.relations.SchoolAndDirector
+import com.training.school_database.db.entities.relations.SchoolWithStudents
 
 @Dao
 interface SchoolDoa {
@@ -13,8 +15,14 @@ interface SchoolDoa {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDirector(director: Director): Long
 
-//    @Transaction // multi threads safety.
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertStudent(student: Student): Long
 
+    @Transaction // multi threads safety.
     @Query("SELECT * FROM school WHERE school_name = :schoolName")
     suspend fun getSchoolAndDirector(schoolName: String): List<SchoolAndDirector>
+
+    @Transaction
+    @Query("SELECT * FROM school WHERE school_name = :schoolName")
+    suspend fun getSchoolWithStudents(schoolName: String): List<SchoolWithStudents>
 }

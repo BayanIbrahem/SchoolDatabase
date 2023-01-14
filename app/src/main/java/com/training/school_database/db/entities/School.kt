@@ -8,9 +8,6 @@ import androidx.room.PrimaryKey
 data class School (
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "school_id")
-    val id: Long = -1,
-
     @ColumnInfo(name = "school_name")
     val name: String,
 )
