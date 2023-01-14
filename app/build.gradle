@@ -1,11 +1,16 @@
 plugins {
 	id 'com.android.application'
 	id 'org.jetbrains.kotlin.android'
+	id 'kotlin-kapt'
 }
 
 android {
 	namespace 'com.training.school_database'
 	compileSdk 32
+
+	buildFeatures {
+		viewBinding true
+	}
 
 	defaultConfig {
 		applicationId "com.training.school_database"
@@ -33,6 +38,10 @@ android {
 }
 
 dependencies {
+	def roomVersion = "2.5.0"
+	def coroutinesVersion = "1.6.1"
+	def coroutinesLifecycleVersion = "2.5.1"
+
 
 	implementation 'androidx.core:core-ktx:1.7.0'
 	implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -41,4 +50,19 @@ dependencies {
 	testImplementation 'junit:junit:4.13.2'
 	androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 	androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+	// Room:
+	implementation "androidx.room:room-runtime:$roomVersion"
+	kapt "androidx.room:room-compiler:$roomVersion"
+
+	// Room extensions:
+	implementation "androidx.room:room-ktx:$roomVersion"
+
+	// Coroutines:
+	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+	// Coroutine Lifecycle Scopes:
+	implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutinesLifecycleVersion"
+	implementation "androidx.lifecycle:lifecycle-runtime-ktx:$coroutinesLifecycleVersion"
 }
