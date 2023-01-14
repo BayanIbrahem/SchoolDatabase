@@ -1,8 +1,10 @@
 package com.training.school_database.db.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+@Entity(tableName = "student")
 data class Student (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "student_id")
