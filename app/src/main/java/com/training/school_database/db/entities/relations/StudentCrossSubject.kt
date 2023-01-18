@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(primaryKeys = ["student_id", "subject_id"], tableName = "students_cross_subjects")
-data class StudentsCrossSubjects (
+data class StudentCrossSubject (
     @ColumnInfo(name = "student_id")
     val studentId: Long,
 

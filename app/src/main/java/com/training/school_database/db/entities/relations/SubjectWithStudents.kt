@@ -11,7 +11,7 @@ data class SubjectWithStudents (
     @Relation (
         parentColumn = "subject_id",
         entityColumn = "student_id",
-        associateBy = Junction(StudentsCrossSubjects::class)
+        associateBy = Junction(StudentCrossSubject::class)
     )
     val students: List<Student>
 )

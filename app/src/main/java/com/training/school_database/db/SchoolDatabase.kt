@@ -8,12 +8,12 @@ import com.training.school_database.db.entities.Director
 import com.training.school_database.db.entities.School
 import com.training.school_database.db.entities.Student
 import com.training.school_database.db.entities.Subject
-import com.training.school_database.db.entities.relations.StudentsCrossSubjects
+import com.training.school_database.db.entities.relations.StudentCrossSubject
 
 @Database(
     entities = [
-        School::class, Director::class, Student::class, Subject::class, StudentsCrossSubjects::class],
-    version = 8
+        School::class, Director::class, Student::class, Subject::class, StudentCrossSubject::class],
+    version = 11
 )
 abstract class SchoolDatabase : RoomDatabase() {
 

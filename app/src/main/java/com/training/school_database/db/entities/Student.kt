@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Student (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "student_id")
-    val id: Long = -1,
+    val id: Long? = null,
 
     @ColumnInfo(name = "student_name")
     val name: String,
@@ -18,4 +18,7 @@ data class Student (
 
     @ColumnInfo(name = "school_name")
     val schoolName: String
-)
+) {
+    val noId: Student
+        get() = this@Student.copy(id = null)
+}

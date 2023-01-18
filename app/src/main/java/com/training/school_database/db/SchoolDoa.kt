@@ -1,5 +1,6 @@
 package com.training.school_database.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.training.school_database.db.entities.Director
 import com.training.school_database.db.entities.School
@@ -22,23 +23,38 @@ interface SchoolDoa {
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = Subject::class)
     suspend fun insertSubject(subject: Subject): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE, entity = StudentsCrossSubjects::class)
-    suspend fun insertStudentCrossSubject(crossRef: StudentsCrossSubjects): Long
+    @Insert(onConflict = OnConflictStrategy.REPLACE, entity = StudentCrossSubject::class)
+    suspend fun insertStudentCrossSubject(crossRef: StudentCrossSubject): Long
 
     /** select: */
+    @Query("SELECT * FROM school")
+    fun getSchools(): LiveData<List<School>>
+
+    @Query("SELECT * FROM director")
+    fun getDirectors(): LiveData<List<Director>>
+
+    @Query("SELECT * FROM student")
+    fun getStudents(): LiveData<List<Student>>
+
+    @Query("SELECT * FROM subject")
+    fun getSubjects(): LiveData<List<Subject>>
+
+    @Query("SELECT * FROM students_cross_subjects")
+    fun getStudentsCrossObjects(): LiveData<List<StudentCrossSubject>>
+
     @Transaction // multi threads safety.
     @Query("SELECT * FROM school WHERE school_name = :schoolName")
-    suspend fun getSchoolAndDirector(schoolName: String): List<SchoolAndDirector>
+    fun getSchoolAndDirector(schoolName: String): LiveData<List<SchoolAndDirector>>
 
     @Transaction
     @Query("SELECT * FROM school WHERE school_name = :schoolName")
-    suspend fun getSchoolWithStudents(schoolName: String): List<SchoolWithStudents>
+    fun getSchoolWithStudents(schoolName: String): LiveData<List<SchoolWithStudents>>
 
     @Transaction
     @Query("SELECT * FROM students_cross_subjects, student WHERE students_cross_subjects.student_id = :studentId AND student.student_id = :studentId")
-    suspend fun getStudentWithSubjects(studentId: Long): List<StudentsWithSubjects>
+    fun getStudentWithSubjects(studentId: Long): LiveData<List<StudentsWithSubjects>>
 
     @Transaction
     @Query("SELECT * FROM students_cross_subjects, subject WHERE students_cross_subjects.subject_id = :subjectId AND subject.subject_id = :subjectId")
-    suspend fun getSubjectWithStudents(subjectId: Long): List<SubjectWithStudents>
+    fun getSubjectWithStudents(subjectId: Long): LiveData<List<SubjectWithStudents>>
 }
